@@ -14,11 +14,18 @@ const App = () => {
 
   const addNumber = (event) =>{
     event.preventDefault()
+
+    // Check if name already exists
+    const found = persons.map((person)=> person.name).includes(newName)
+    if(found){
+      return alert(`${newName} already exists` )
+    }
+    // Add unique person object
     const personObj = {
       name: newName,
       id: String(persons.length + 1)
     }
-    console.log()
+    // Add person
     setPersons(persons.concat(personObj))
     setNewName('')
   }
