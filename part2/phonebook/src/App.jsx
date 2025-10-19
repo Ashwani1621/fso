@@ -1,15 +1,8 @@
 import { useState } from 'react'
+import Numbers from './components/Numbers'
 
-
-const Number = ({persons}) => {
-  return (
-      persons.map((person)=> <div key={person.id}>{person.name}</div>)
-  )
-}
 const App = () => {
-  const [persons, setPersons] = useState([
-    
-  ]) 
+  const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
 
   const addNumber = (event) =>{
@@ -43,7 +36,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <Number persons = {persons}/>
+      <Numbers persons = {persons}/>
     </div>
   )
 }
