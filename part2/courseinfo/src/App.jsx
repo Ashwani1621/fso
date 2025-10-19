@@ -3,7 +3,7 @@
 const Header = (props) =>{
   return(
     <div>
-      <h1>{props.course}</h1>
+      <h2>{props.course}</h2>
     </div>
   )
 }
@@ -11,7 +11,7 @@ const Total = ({parts}) =>{
   const sum  = parts.map((part)=> part.exercises).reduce((prev, curr)=> prev + curr, 0)
   return(
     <div>
-      <p>total of {sum} exercises</p>
+      <p style={{fontWeight: "bold"}}>total of {sum} exercises</p>
     </div>
   )
 }
@@ -106,7 +106,12 @@ const App = () => {
     }
   ]
 
-  return <Course courses={courses} />
+  return (
+  <>
+    <h1>Web Development Curriculum</h1>
+    <Course courses={courses} />
+  </>
+  )
 }
 
 export default App
