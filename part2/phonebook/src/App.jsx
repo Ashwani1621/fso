@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import Numbers from './components/Numbers'
 import { use } from 'react'
-import Form from './components/Form'
+import PersonForm from './components/PersonForm'
+import Filter from './components/Filter'
+
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -14,11 +16,12 @@ const App = () => {
   const [newPhone, setNewPhone] = useState('')
   const [filter , setFilter] = useState('')
   const [filteredPersons, setFilteredPersons] = useState([])
-  console.log(filteredPersons)
+ 
+  // Event Listeners
   const addNumber = (event) =>{
     event.preventDefault()
 
-    // Check if name already exists
+    
     const foundName = persons.map((person)=> person.name).includes(newName)
     const foundPhone = persons.map((person)=> person.phone).includes(newPhone)
     if(foundName){
@@ -27,13 +30,13 @@ const App = () => {
     if(foundPhone){
       return alert(`${newPhone} already exists` )
     }
-    // Add unique person object
+    
     const personObj = {
       id: String(persons.length + 1),
       name: newName,
       number: newPhone
     }
-    // Add person
+    
     setPersons(persons.concat(personObj))
     setNewName('')
     setNewPhone('')
@@ -52,8 +55,11 @@ const App = () => {
 
   return (
     <div>
-      <h1>Phonebook</h1>
-      <Form filter={filter} handleFilter={handleFilter} addNumber={addNumber} newName={newName} handleName={handleName} newPhone={newPhone} handlePhone={handlePhone} />
+      <h3>phonebook</h3>
+      <Filter filter={filter} handleFilter={handleFilter}/>
+      <h3>add new</h3>
+      <PersonForm filter={filter} handleFilter={handleFilter} addNumber={addNumber} newName={newName} handleName={handleName} newPhone={newPhone} handlePhone={handlePhone} />
+      <h3>Numbers</h3>
       <Numbers persons = {filter ? filteredPersons: persons}/>
       
     </div>

@@ -1,13 +1,9 @@
-import Number from "./Number"
+import Person from "./Person"
 
 const Numbers = ({persons}) => {
-
-  
   return (
-    
     <div>
-        <h2>Numbers</h2>
-        {persons.map((person) => <Number key = {person.id} name={person.name} phone={person.number}/>)}
+        {persons.map((person) => <Person key = {person.id} name={person.name} phone={person.number}/>)}
     </div>
   )
 }

@@ -1,10 +1,6 @@
-const Form = (props) => {
+const PersonForm = (props) => {
     return (
         <>
-            <h2>Add new</h2>
-            <div>
-                filter shown with : <input type="text" value={props.filter} onChange={props.handleFilter} required/>
-            </div>
             <form onSubmit={props.addNumber}>
                 <div>
                     name: <input value={props.newName} onChange={props.handleName} required/><br />
@@ -18,4 +14,4 @@ const Form = (props) => {
     )
 }
 
-export default Form
+export default PersonForm
