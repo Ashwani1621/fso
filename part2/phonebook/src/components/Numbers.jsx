@@ -6,8 +6,8 @@ const Numbers = ({persons}) => {
   return (
     
     <div>
-        
-        {persons.map((person) => <Number key = {person.id} name={person.name} phone={person.phone}/>)}
+        <h2>Numbers</h2>
+        {persons.map((person) => <Number key = {person.id} name={person.name} phone={person.number}/>)}
     </div>
   )
 }

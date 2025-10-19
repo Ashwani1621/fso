@@ -1,11 +1,20 @@
 import { useState } from 'react'
 import Numbers from './components/Numbers'
+import { use } from 'react'
+import Form from './components/Form'
 
 const App = () => {
-  const [persons, setPersons] = useState([]) 
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+  ]) 
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
-
+  const [filter , setFilter] = useState('')
+  const [filteredPersons, setFilteredPersons] = useState([])
+  console.log(filteredPersons)
   const addNumber = (event) =>{
     event.preventDefault()
 
@@ -22,7 +31,7 @@ const App = () => {
     const personObj = {
       id: String(persons.length + 1),
       name: newName,
-      phone: newPhone
+      number: newPhone
     }
     // Add person
     setPersons(persons.concat(personObj))
@@ -31,21 +40,22 @@ const App = () => {
   }
   const handleName = (event) => {setNewName(event.target.value)}
   const handlePhone = (event) => {setNewPhone(event.target.value)}
+  const handleFilter = (event) => {
+    const value = event.target.value
+    setFilter(value)
+    setFilteredPersons(
+      persons.filter((person) =>
+        person.name.toLowerCase().includes(value.toLowerCase())
+      )
+    )
+  }
 
   return (
     <div>
-      <h2>Phonebook</h2>
-      <form onSubmit={addNumber}>
-        <div>
-          name: <input value={newName} onChange={handleName} required/><br />
-          number: <input type="tel" value={newPhone} onChange={handlePhone} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
-        </div>
-        <div>
-          <button type="submit" >add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <Numbers persons = {persons}/>
+      <h1>Phonebook</h1>
+      <Form filter={filter} handleFilter={handleFilter} addNumber={addNumber} newName={newName} handleName={handleName} newPhone={newPhone} handlePhone={handlePhone} />
+      <Numbers persons = {filter ? filteredPersons: persons}/>
+      
     </div>
   )
 }
