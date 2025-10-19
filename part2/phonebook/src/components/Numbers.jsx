@@ -1,13 +1,13 @@
 import Number from "./Number"
 
 const Numbers = ({persons}) => {
-  console.log(persons);
+
   
   return (
     
     <div>
         
-        {persons.map((person) => <Number key = {person.id} name={person.name}/>)}
+        {persons.map((person) => <Number key = {person.id} name={person.name} phone={person.phone}/>)}
     </div>
   )
 }
