@@ -47,11 +47,18 @@ const App = () => {
   }
 
   const handleDelete = (id) => {
+    const person = persons.find((person)=> person.id===id)
+    if(!confirm(`Delete ${person.name} ?`)){
+      return;
+    }
     phoneService
       .deleteContact(id)
       .then(deletedContact => {
         console.log(deletedContact)
         setPersons(persons.filter(person => person.id !== id))
+      })
+      .catch((err)=>{
+        console.log("Error deleting the contact", err)
       })
   }
 
