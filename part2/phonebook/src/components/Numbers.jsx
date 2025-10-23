@@ -1,9 +1,19 @@
 import Person from "./Person"
 
-const Numbers = ({persons}) => {
+const Numbers = ({persons, handleDelete}) => {
   return (
     <div>
-        {persons.map((person) => <Person key = {person.id} name={person.name} phone={person.number}/>)}
+        {persons.map((person) => {
+
+          return (
+            <Person 
+            key = {person.id} 
+            name={person.name} 
+            phone={person.number}
+            deleteContact={()=> handleDelete(person.id)}
+            />
+          )})
+        }
     </div>
   )
 }

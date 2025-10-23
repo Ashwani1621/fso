@@ -36,8 +36,7 @@ const App = () => {
     
     const personObj = {
       name: newName,
-      number: newPhone,
-      id: String(persons.length + 1),
+      number: newPhone
     }
     phoneService
       .addContacts(personObj)
@@ -45,6 +44,15 @@ const App = () => {
     
     setNewName('')
     setNewPhone('')
+  }
+
+  const handleDelete = (id) => {
+    phoneService
+      .deleteContact(id)
+      .then(deletedContact => {
+        console.log(deletedContact)
+        setPersons(persons.filter(person => person.id !== id))
+      })
   }
 
   const handleName = (event) => {setNewName(event.target.value)}
@@ -66,7 +74,7 @@ const App = () => {
       <h3>add new</h3>
       <PersonForm filter={filter} handleFilter={handleFilter} addNumber={addNumber} newName={newName} handleName={handleName} newPhone={newPhone} handlePhone={handlePhone} />
       <h3>Numbers</h3>
-      <Numbers persons = {filter ? filteredPersons: persons}/>
+      <Numbers persons = {filter ? filteredPersons: persons} handleDelete={handleDelete}/>
       
     </div>
   )
