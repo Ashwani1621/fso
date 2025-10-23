@@ -24,14 +24,33 @@ const App = () => {
   const addNumber = (event) =>{
     event.preventDefault()
 
+    const foundName = persons.find((person)=> person.name === newName)
+    const foundPhone = persons.find((person)=> person.number === newPhone)
     
-    const foundName = persons.map((person)=> person.name).includes(newName)
-    const foundPhone = persons.map((person)=> person.number).includes(newPhone)
     if(foundName){
-      return alert(`${newName} already exists` )
+      if(confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)){
+        const personObj = {
+          name: newName,
+          number: newPhone
+        }
+        phoneService
+          .updateContact(foundName.id, personObj)
+          .then(updatedPerson => {
+            console.log(updatedPerson)
+            setPersons(persons.map((person)=> person.id === foundName.id ? updatedPerson : person))
+            setNewName('')
+            setNewPhone('')
+          })
+          .catch((err) => {
+            console.log("Error updating contact", err)
+          })
+      }
+      return
     }
+
     if(foundPhone){
-      return alert(`${newPhone} already exists` )
+      alert(`Phone number ${newPhone} is already added to phonebook`)
+      return
     }
     
     const personObj = {
@@ -40,10 +59,14 @@ const App = () => {
     }
     phoneService
       .addContacts(personObj)
-      .then(newPerson=> setPersons(persons.concat(newPerson)))
-    
-    setNewName('')
-    setNewPhone('')
+      .then(newPerson=> {
+        setPersons(persons.concat(newPerson))
+        setNewName('')
+        setNewPhone('')
+      })
+      .catch((err) => {
+        console.log("Error adding contact", err)
+      })
   }
 
   const handleDelete = (id) => {
