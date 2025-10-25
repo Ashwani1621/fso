@@ -1,3 +1,9 @@
 h3 {
     color:blueviolet
 }
+
+.notify {
+    background-color: black;
+    color: aliceblue;
+    padding: 10px;
+}
