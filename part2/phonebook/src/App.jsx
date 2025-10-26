@@ -46,6 +46,9 @@ const App = () => {
             setNewPhone('')
           })
           .catch((err) => {
+            setNotification(`Error Updating the contact`)
+            setTimeout(() => {
+              setNotification(null)}, 5000)  
             console.log("Error updating contact", err)
           })
       }
